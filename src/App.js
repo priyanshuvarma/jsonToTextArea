@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import NotesForm from './components/NotesForm';
+import Notes from './components/Notes';
+import JsontoUi from './components/JsontoUi';
+import './App.css'
 
 function App() {
+  const [data, setData] = useState({});
+
+  const handleSubmit = (notesData) => {
+    // update the state with the new notes data
+    setData(notesData);
+  };
+console.log("data:",data)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NotesForm onSubmit={handleSubmit} />
+      <Notes data={data} />
+      {data.clinical_history && <JsontoUi data={data}/>}
     </div>
   );
 }
